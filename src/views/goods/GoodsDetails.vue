@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="margin-left: 351px">
   <el-row>
     <el-col :span="12">
       <el-row>
@@ -111,7 +111,7 @@
       </el-row>
       <el-row>
         <div class="user">
-          <div class="desc-title">宝贝描述</div>
+          <div class="desc-title">精选推荐</div>
           <el-row style="border-bottom: #e5e5e5 solid 1px">
             <el-col :span="12">
               <img src="../../../static/images/banner02.jpg" style="width: 140px;height: 105px">

@@ -1,18 +1,27 @@
 <template>
-
   <el-container>
     <el-header height="80px">
       <el-row>
         <el-col :span="6"><el-button type="primary" icon="el-icon-house" @click="backHome">首页</el-button></el-col>
-        <el-col :span="6">导航</el-col>
-        <el-col :span="6">导航</el-col>
         <el-col :span="6">  <el-button @click="login" type="primary">主要按钮</el-button></el-col>
+        <el-col :span="6">导航</el-col>
+        <el-col :span="6">
+          <div>
+            <el-dropdown>
+                  <span class="el-dropdown-link home_userinfo">
+                    用户名<i class="el-icon-arrow-down el-icon--right home_userinfo"></i>
+                  </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item icon="el-icon-user" @click.native="usercustom">账号管理</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-switch-button" @click.native="logout">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+        </div>
+        </el-col>
       </el-row>
     </el-header>
     <el-container>
-      <el-aside width="200px">
-        <el-cascader :options="options" clearable @change="test"></el-cascader>
-      </el-aside>
+
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -26,7 +35,6 @@
 import router from "@/router";
 
 export default {
-  name: "Test",
   data() {
     return {
       options:[
@@ -77,7 +85,27 @@ export default {
 
     },
     backHome(){
-      router.push("home")
+      router.push("/home")
+    },
+    logout(){
+      let _this = this;
+      this.$confirm('注销登录吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(function () {
+        _this.axios.get("http://localhost:9090/admin/user/logout").then(function (){
+          console.log("logout")
+          localStorage.removeItem("token");
+          console.log(localStorage.getItem("token"))
+        })
+        localStorage.removeItem('systemAdmin')
+        _this.$router.replace({path: '/loginto'})
+      })
+    },
+    usercustom(){
+      let _this=this;
+      _this.$router.replace({path:"/usermanager"})
     }
   },
 }
@@ -97,6 +125,9 @@ export default {
   text-align: center;
   line-height: 200px;
 }
-
+/*.home_userinfoContainer {*/
+/*  display: inline;*/
+/*  margin-right: 20px;*/
+/*}*/
 
 </style>

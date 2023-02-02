@@ -1,6 +1,11 @@
 <template>
   <div>
-    <el-row>
+    <el-container>
+      <el-aside width="200px">
+        <el-cascader :options="options" clearable></el-cascader>
+      </el-aside>
+
+      <el-main><el-row>
       <el-col :span="2" :offset="21"><el-input  placeholder="请输入内容"></el-input>
       </el-col>
       <el-col :span="1"><el-button icon="el-icon-search" circle></el-button>
@@ -32,6 +37,8 @@
 <!--        <div style="width: 100%;height: 100px;background-color: green">test</div>-->
 <!--      </el-col>-->
     </el-row>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
@@ -42,6 +49,40 @@ export default {
   name: "Home",
   data(){
     return{
+      options:[
+        {
+          value:"1",
+          label:"手机",
+          children:[
+            {
+              value:"1.1",
+              label:"小米手机"
+            },
+            {
+              value: "1.2",
+              label: "华为手机"
+            },
+            {
+              value:"1.3",
+              label:"苹果手机"
+            },
+          ]
+        },
+        {
+          value:"2",
+          label:"数码",
+          children:[
+            {
+              value:"2.1",
+              label:"游戏主机"
+            },
+            {
+              value: "2.2",
+              label: "二手电脑"
+            }
+          ]
+        }
+      ],
       imagePathList:[
           require('../../..//static/images/banner01.jpg'),
           require('../../..//static/images/banner02.jpg'),
