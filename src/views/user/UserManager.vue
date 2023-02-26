@@ -22,36 +22,31 @@
             <h3 style="font-size: 16px">个人中心</h3>
           </el-row>
           <el-row style="margin-top: 10px;width: 138px;height: 33px;font-size: 14px;color: #757575">
-            我的个人中心
+            <el-button class="left-navigation" @click="navigatetomain('usermain')" type="text">我的个人中心</el-button>
           </el-row>
           <el-row style="margin-top: 10px;width: 138px;height: 33px;font-size: 14px;color: #757575">
             消息通知
           </el-row>
         </el-row>
+        <el-row style="margin-left: 50px">
+          <el-row style="width: 138px;height: 52px;color: #333">
+            <h3 style="font-size: 16px">我的交易</h3>
+          </el-row>
+          <el-row style="margin-top: 10px;width: 138px;height: 33px;font-size: 14px;color: #757575">
+            <el-button class="left-navigation" @click="navigatetomain('goodsmanager')" type="text">我发布的</el-button>
+          </el-row>
+          <el-row style="margin-top: 10px;width: 138px;height: 33px;font-size: 14px;color: #757575">
+            <el-button class="left-navigation" @click="navigatetomain('goodsmanager')" type="text">我卖出的</el-button>
+          </el-row>
+          <el-row style="margin-top: 10px;width: 138px;height: 33px;font-size: 14px;color: #757575">
+            <el-button class="left-navigation" @click="navigatetomain('goodsmanager')" type="text">我买到的</el-button>
+          </el-row>
+        </el-row>
+
       </div>
     </el-aside>
     <el-main>
-      <div style="background-color: #fff;margin-top: 40px;margin-left: 15px;width: 977px">
-      <el-row style="border-bottom: 1px solid #e0e0e0;">
-        <el-col :span="11">
-          <el-col :span="12" >
-            <img src="../../../static/images/banner01.jpg" style="text-align:right;width: 150px;height: 150px;border-radius: 150px;margin-top: 60px;margin-left: 60px">
-          </el-col>
-          <el-col :span="6" style="margin-top: 110px;text-align: left">
-            <el-col class="username">balabala</el-col>
-            <el-col class="tip">下午好~</el-col>
-            <el-col class="link">修改个人信息></el-col>
-          </el-col>
-        </el-col>
-        <el-col :span="13" style="margin-top: 100px;">
-          <div style="margin-left: 140px">
-          <el-col class="user-actions">账号安全：<span style="color: #ffac13;">普通</span></el-col>
-          <el-col class="user-actions">绑定手机：<span>177******43</span></el-col>
-          <el-col class="user-actions">绑定邮箱：<span>未绑定</span></el-col>
-          </div>
-        </el-col>
-      </el-row>
-      </div>
+      <router-view></router-view>
     </el-main>
 
   </el-container>
@@ -70,8 +65,11 @@ export default {
     myorder(){
       alert("tesxt");
       console.log("test")
-
-    }
+    },
+    navigatetomain(path){
+      console.log(path)
+      this.$router.push('/usermanager/'+path)
+    },
   }
 }
 </script>

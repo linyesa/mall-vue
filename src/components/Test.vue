@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="6"><el-button type="primary" icon="el-icon-house" @click="backHome">首页</el-button></el-col>
         <el-col :span="6">  <el-button @click="login" type="primary">主要按钮</el-button></el-col>
-        <el-col :span="6">导航</el-col>
+        <el-col :span="6"><el-button @click="publish" type="primary">商品发布</el-button></el-col>
         <el-col :span="6">
           <div>
             <el-dropdown>
@@ -13,6 +13,7 @@
                   </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item icon="el-icon-user" @click.native="usercustom">账号管理</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-s-goods" @click.native="togoodsmanager">商品管理</el-dropdown-item>
                 <el-dropdown-item icon="el-icon-switch-button" @click.native="logout">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -106,6 +107,12 @@ export default {
     usercustom(){
       let _this=this;
       _this.$router.replace({path:"/usermanager"})
+    },
+    publish(){
+      this.$router.replace({path:"/goodspublish"})
+    },
+    togoodsmanager(){
+      this.$router.replace({path:"/usermanager/goodsmanager"})
     }
   },
 }

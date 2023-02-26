@@ -1,248 +1,183 @@
 <template>
-  <div><el-row>
-    <el-button>默认按钮</el-button>
-    <el-button type="primary" @click="mainButton">主要按钮</el-button>
-    <el-button type="success">成功按钮</el-button>
-    <el-button type="info">信息按钮</el-button>
-    <el-button type="warning">警告按钮</el-button>
-    <el-button type="danger">危险按钮</el-button>
-  </el-row>
-<el-row>
-  <div>{{Imgpath}}</div>
-  <div style="width: 100px;height: 100px">
-  <img src="../../../static/images/banner01.jpg">
-  <img v-bind:src="Imgpath">
-  </div>
-</el-row>
-<el-row>
-  <el-tooltip placement="top">
-    <div slot="content">多行信息<br/>第二行信息</div>
-    <el-button>Top center</el-button>
-  </el-tooltip>
-</el-row>
-<el-row>
-  <el-cascader :options="options" clearable></el-cascader>
-
-</el-row>
+  <div class="loginbody">
+    <div class="logindata">
+      <div class="logintext">
+        <h2>Welcome</h2>
+      </div>
+      <div class="formdata">
+        <el-form ref="form" :model="form" :rules="rules">
+<!--          <el-form-item prop="username">-->
+<!--            <el-input-->
+<!--                v-model="form.username"-->
+<!--                clearable-->
+<!--                placeholder="请输入手机号"-->
+<!--            ></el-input>-->
+<!--          </el-form-item>-->
+          <el-form-item prop="mobile">
+            <el-input
+                v-model="form.mobile"
+                clearable
+                placeholder="请输入手机号"
+            ></el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input
+                v-model="form.password"
+                clearable
+                placeholder="请输入密码"
+                show-password
+            ></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div class="tool">
+        <div>
+          <el-checkbox v-model="checked" @change="remenber"
+          >记住密码</el-checkbox
+          >
+        </div>
+        <div>
+          <span class="shou" @click="forgetpas">忘记密码？</span>
+        </div>
+      </div>
+      <div class="butt">
+        <el-button type="primary" @click.native.prevent="login('form')"
+        >登录</el-button
+        >
+        <el-button class="shou" @click="register">注册</el-button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+// import { login } from "@/api/login";
+// import { setToken } from "@/request/auth";
+import userIndex from "@/api/user/userIndex";
 export default {
-  name: "Login",
-  data(){
-    return{
-    Imgpath:require('../../..//static/images/banner01.jpg'),
-      options: [{
-        value: 'zhinan',
-        label: '指南',
-        children: [{
-          value: 'shejiyuanze',
-          label: '设计原则',
-          children: [{
-            value: 'yizhi',
-            label: '一致'
-          }, {
-            value: 'fankui',
-            label: '反馈'
-          }, {
-            value: 'xiaolv',
-            label: '效率'
-          }, {
-            value: 'kekong',
-            label: '可控'
-          }]
-        }, {
-          value: 'daohang',
-          label: '导航',
-          children: [{
-            value: 'cexiangdaohang',
-            label: '侧向导航'
-          }, {
-            value: 'dingbudaohang',
-            label: '顶部导航'
-          }]
-        }]
+  data() {
+    return {
+      form: {
+        password: "",
+        username: "",
+        mobile:""
       },
-        {
-        value: 'zujian',
-        label: '组件',
-        children: [{
-          value: 'basic',
-          label: 'Basic',
-          children: [{
-            value: 'layout',
-            label: 'Layout 布局'
-          }, {
-            value: 'color',
-            label: 'Color 色彩'
-          }, {
-            value: 'typography',
-            label: 'Typography 字体'
-          }, {
-            value: 'icon',
-            label: 'Icon 图标'
-          }, {
-            value: 'button',
-            label: 'Button 按钮'
-          }]
-        }, {
-          value: 'form',
-          label: 'Form',
-          children: [{
-            value: 'radio',
-            label: 'Radio 单选框'
-          }, {
-            value: 'checkbox',
-            label: 'Checkbox 多选框'
-          }, {
-            value: 'input',
-            label: 'Input 输入框'
-          }, {
-            value: 'input-number',
-            label: 'InputNumber 计数器'
-          }, {
-            value: 'select',
-            label: 'Select 选择器'
-          }, {
-            value: 'cascader',
-            label: 'Cascader 级联选择器'
-          }, {
-            value: 'switch',
-            label: 'Switch 开关'
-          }, {
-            value: 'slider',
-            label: 'Slider 滑块'
-          }, {
-            value: 'time-picker',
-            label: 'TimePicker 时间选择器'
-          }, {
-            value: 'date-picker',
-            label: 'DatePicker 日期选择器'
-          }, {
-            value: 'datetime-picker',
-            label: 'DateTimePicker 日期时间选择器'
-          }, {
-            value: 'upload',
-            label: 'Upload 上传'
-          }, {
-            value: 'rate',
-            label: 'Rate 评分'
-          }, {
-            value: 'form',
-            label: 'Form 表单'
-          }]
-        }, {
-          value: 'data',
-          label: 'Data',
-          children: [{
-            value: 'table',
-            label: 'Table 表格'
-          }, {
-            value: 'tag',
-            label: 'Tag 标签'
-          }, {
-            value: 'progress',
-            label: 'Progress 进度条'
-          }, {
-            value: 'tree',
-            label: 'Tree 树形控件'
-          }, {
-            value: 'pagination',
-            label: 'Pagination 分页'
-          }, {
-            value: 'badge',
-            label: 'Badge 标记'
-          }]
-        }, {
-          value: 'notice',
-          label: 'Notice',
-          children: [{
-            value: 'alert',
-            label: 'Alert 警告'
-          }, {
-            value: 'loading',
-            label: 'Loading 加载'
-          }, {
-            value: 'message',
-            label: 'Message 消息提示'
-          }, {
-            value: 'message-box',
-            label: 'MessageBox 弹框'
-          }, {
-            value: 'notification',
-            label: 'Notification 通知'
-          }]
-        }, {
-          value: 'navigation',
-          label: 'Navigation',
-          children: [{
-            value: 'menu',
-            label: 'NavMenu 导航菜单'
-          }, {
-            value: 'tabs',
-            label: 'Tabs 标签页'
-          }, {
-            value: 'breadcrumb',
-            label: 'Breadcrumb 面包屑'
-          }, {
-            value: 'dropdown',
-            label: 'Dropdown 下拉菜单'
-          }, {
-            value: 'steps',
-            label: 'Steps 步骤条'
-          }]
-        }, {
-          value: 'others',
-          label: 'Others',
-          children: [{
-            value: 'dialog',
-            label: 'Dialog 对话框'
-          }, {
-            value: 'tooltip',
-            label: 'Tooltip 文字提示'
-          }, {
-            value: 'popover',
-            label: 'Popover 弹出框'
-          }, {
-            value: 'card',
-            label: 'Card 卡片'
-          }, {
-            value: 'carousel',
-            label: 'Carousel 走马灯'
-          }, {
-            value: 'collapse',
-            label: 'Collapse 折叠面板'
-          }]
-        }]
-      }, {
-        value: 'ziyuan',
-        label: '资源',
-        children: [{
-          value: 'axure',
-          label: 'Axure Components'
-        }, {
-          value: 'sketch',
-          label: 'Sketch Templates'
-        }, {
-          value: 'jiaohu',
-          label: '组件交互文档'
-        }]
-      }]
-
-    }
+      checked: false,
+      rules: {
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          { max: 10, message: "不能大于10个字符", trigger: "blur" },
+        ],
+        password: [
+          { required: true, message: "请输入密码", trigger: "blur" },
+          { max: 10, message: "不能大于10个字符", trigger: "blur" },
+        ],
+        mobile: [
+          { required: true, message: "请输入手机号", trigger: "blur" },
+          {
+            pattern: /^1[3-9]\d{9}$/,
+            message: '手机号格式错误'
+          }
+        ]
+      },
+    };
   },
-  methods:{
-    mainButton(){
-      alert("test")
-    }
-  }
-}
+
+  methods: {
+    login(form) {
+      this.$refs[form].validate((valid) => {
+        userIndex.userLogin(this.form)
+            .then(response=>{
+              if (response.data.message==="success"){
+                console.log(response)
+                console.log("success")
+              }
+              else{
+                console.log(response)
+              }
+            }
+        )
+      });
+    },
+    remenber(data){
+      this.checked=data
+      if(this.checked){
+        localStorage.setItem("news",JSON.stringify(this.form))
+      }else{
+        localStorage.removeItem("news")
+      }
+    },
+    forgetpas() {
+      this.$message({
+        type:"info",
+        message:"功能尚未开发额😥",
+        showClose:true
+      })
+    },
+    register() {},
+  },
+};
 </script>
 
 <style scoped>
-img{
-  max-height: 100%;
-  max-width: 100%;
+.loginbody {
+  width: 100%;
+  height: 100%;
+  min-width: 1000px;
+  background-image: url("../../assets/loginbackimg.jpg");
+  background-size: 100% 100%;
+  background-position: center center;
+  overflow: auto;
+  background-repeat: no-repeat;
+  position: fixed;
+  line-height: 100%;
+  padding-top: 150px;
 }
+
+.logintext {
+  margin-bottom: 20px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bolder;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.logindata {
+  width: 400px;
+  height: 300px;
+  transform: translate(-50%);
+  margin-left: 50%;
+}
+
+.tool {
+  display: flex;
+  justify-content: space-between;
+  color: #606266;
+}
+
+.butt {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.shou {
+  cursor: pointer;
+  color: #606266;
+}
+
+/*ui*/
+/* /deep/ .el-form-item__label {
+  font-weight: bolder;
+  font-size: 15px;
+  text-align: left;
+}
+
+/deep/ .el-button {
+  width: 100%;
+  margin-bottom: 10px;
+
+} */
 </style>
+

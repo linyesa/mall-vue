@@ -8,6 +8,10 @@ import Login from "../views/login/Login"
 import Study from "../views/study/Study";
 import GoodsDetails from "../views/goods/GoodsDetails";
 import UserManager from "../views/user/UserManager";
+// import * as path from "path";
+import UserMain from "@/views/user/userMain/UserMain";
+import GoodsPublish from "@/views/goods/GoodsPublish";
+import GoodsManager from "@/views/goods/GoodsManager";
 // 要告诉 vue 使用 vueRouter
 Vue.use(VueRouter);
 
@@ -26,8 +30,23 @@ const routes = [
                 component: GoodsDetails
             },
             {
+              path:"goodspublish",
+              component: GoodsPublish
+            },
+            {
                 path:"usermanager",
-                component: UserManager
+                component: UserManager,
+                redirect:"/usermanager/usermain",
+                children:[
+                    {
+                    path:"usermain",
+                    component:UserMain
+                    },
+                    {
+                        path:"goodsmanager",
+                        component: GoodsManager
+                    }
+                    ]
             }
             ],
     },

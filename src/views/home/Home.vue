@@ -44,7 +44,7 @@
 
 <script>
 import router from "@/router";
-
+import userIndex from "@/api/user/userIndex";
 export default {
   name: "Home",
   data(){
@@ -124,7 +124,11 @@ export default {
     goodsDetail(goodsId){
       console.log(goodsId)
       router.push("goodsdetails")
-    }
+    },
+
+  },
+  created() {
+    userIndex.testAxios();
   }
 }
 </script>
