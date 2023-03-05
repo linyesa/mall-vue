@@ -117,7 +117,10 @@ export default {
           goodsIntro:'好物精选gfaggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg',
           originalPrice:'1499'
         }
-      ]
+      ],
+      userInfo:{
+
+      }
     }
   },
   methods:{
@@ -128,7 +131,8 @@ export default {
 
   },
   created() {
-    userIndex.testAxios();
+    console.log(JSON.parse(localStorage.getItem('userInfo')))
+    this.userInfo=JSON.parse(localStorage.getItem('userInfo'))
   }
 }
 </script>

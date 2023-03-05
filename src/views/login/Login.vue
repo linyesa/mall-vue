@@ -88,12 +88,16 @@ export default {
       this.$refs[form].validate((valid) => {
         userIndex.userLogin(this.form)
             .then(response=>{
-              if (response.data.message==="success"){
-                console.log(response)
-                console.log("success")
+              if (response.data.msg==='success'){
+                localStorage.setItem("userInfo",JSON.stringify(response.data.userinfo))
+                this.$message({
+                  message: '登录成功',
+                  type: 'success'
+                });
+                this.$router.replace({path:"/home"})
               }
-              else{
-                console.log(response)
+              if (response.data.code==20001){
+                this.$message.error(response.data.msg);
               }
             }
         )

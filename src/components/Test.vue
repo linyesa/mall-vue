@@ -9,7 +9,7 @@
           <div>
             <el-dropdown>
                   <span class="el-dropdown-link home_userinfo">
-                    用户名<i class="el-icon-arrow-down el-icon--right home_userinfo"></i>
+                    {{userInfo.username}}<i class="el-icon-arrow-down el-icon--right home_userinfo"></i>
                   </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item icon="el-icon-user" @click.native="usercustom">账号管理</el-dropdown-item>
@@ -38,6 +38,8 @@ import router from "@/router";
 export default {
   data() {
     return {
+      userInfo:{
+      },
       options:[
         {
           value:"1",
@@ -115,6 +117,10 @@ export default {
       this.$router.replace({path:"/usermanager/goodsmanager"})
     }
   },
+  created() {
+    console.log(JSON.parse(localStorage.getItem('userInfo')))
+    this.userInfo=JSON.parse(localStorage.getItem('userInfo'))
+  }
 }
 </script>
 
