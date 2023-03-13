@@ -42,8 +42,7 @@
       </div>
       <div class="butt">
         <el-button type="primary" @click.native.prevent="login('form')"
-        >登录</el-button
-        >
+        >登录</el-button>
         <el-button class="shou" @click="register">注册</el-button>
       </div>
     </div>

@@ -2,19 +2,20 @@
   <el-container>
     <el-header height="80px">
       <el-row>
-        <el-col :span="6"><el-button type="primary" icon="el-icon-house" @click="backHome">首页</el-button></el-col>
-        <el-col :span="6">  <el-button @click="login" type="primary">主要按钮</el-button></el-col>
-        <el-col :span="6"><el-button @click="publish" type="primary">商品发布</el-button></el-col>
-        <el-col :span="6">
+        <el-col :span="5"><el-button type="primary" icon="el-icon-house" @click="skip('/home')">首页</el-button></el-col>
+        <el-col :span="5"><el-button @click="skip('/login')" type="primary">主要按钮</el-button></el-col>
+        <el-col :span="5"><el-button @click="skip('/goodspublish')" type="primary">商品发布</el-button></el-col>
+        <el-col :span="5"><el-button @click="skip('/adminaside')" type="primary">管理员后台修改</el-button></el-col>
+        <el-col :span="4">
           <div>
             <el-dropdown>
                   <span class="el-dropdown-link home_userinfo">
                     {{userInfo.username}}<i class="el-icon-arrow-down el-icon--right home_userinfo"></i>
                   </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item icon="el-icon-user" @click.native="usercustom">账号管理</el-dropdown-item>
-                <el-dropdown-item icon="el-icon-s-goods" @click.native="togoodsmanager">商品管理</el-dropdown-item>
-                <el-dropdown-item icon="el-icon-switch-button" @click.native="logout">退出登录</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-user" @click.native="skip('/usermanager')">账号管理</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-s-goods" @click.native="skip('/usermanager/goodsmanager')">商品管理</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-switch-button" @click.native="skip('usermanager')">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
         </div>
@@ -78,17 +79,11 @@ export default {
     }
   },
   methods:{
-    login(){
-      router.push("/login")
-    },
     test(val){
       console.log("test")
       console.log(val)
       // router.push("/login")
 
-    },
-    backHome(){
-      router.push("/home")
     },
     logout(){
       let _this = this;
@@ -106,19 +101,11 @@ export default {
         _this.$router.replace({path: '/loginto'})
       })
     },
-    usercustom(){
-      let _this=this;
-      _this.$router.replace({path:"/usermanager"})
-    },
-    publish(){
-      this.$router.replace({path:"/goodspublish"})
-    },
-    togoodsmanager(){
-      this.$router.replace({path:"/usermanager/goodsmanager"})
+    skip(pathName){
+      this.$router.replace({path:pathName})
     }
   },
   created() {
-    console.log(JSON.parse(localStorage.getItem('userInfo')))
     this.userInfo=JSON.parse(localStorage.getItem('userInfo'))
   }
 }

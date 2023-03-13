@@ -7,7 +7,7 @@
           <img src="../../../../static/images/banner01.jpg" style="text-align:right;width: 150px;height: 150px;border-radius: 150px;margin-top: 60px;margin-left: 60px">
         </el-col>
         <el-col :span="6" style="margin-top: 110px;text-align: left">
-          <el-col class="username">balabala</el-col>
+          <el-col class="username">{{userInfo.username}}</el-col>
           <el-col class="tip">下午好~</el-col>
           <el-col class="link">修改个人信息></el-col>
         </el-col>
@@ -15,8 +15,8 @@
       <el-col :span="13" style="margin-top: 100px;">
         <div style="margin-left: 140px">
           <el-col class="user-actions">账号安全：<span style="color: #ffac13;">普通</span></el-col>
-          <el-col class="user-actions">绑定手机：<span>177******43</span></el-col>
-          <el-col class="user-actions">绑定邮箱：<span>未绑定</span></el-col>
+          <el-col class="user-actions">绑定手机：<span>{{userInfo.mobile}}</span></el-col>
+          <el-col class="user-actions">绑定邮箱：<span>{{ userInfo.email }}</span></el-col>
         </div>
       </el-col>
     </el-row>
@@ -108,9 +108,12 @@ export default {
       }
     };
     return{
+      userInfo:{
+
+      },
       user:{
         username:'test',
-        password:'123456',
+        password:'******',
         phone:"17783052743"
       },
       dialogPhoneVisible: false,
@@ -157,39 +160,44 @@ export default {
 
     }
   },
-  async submit(){
-    const _this=this;
-    _this.dialogPasswordVisible=false
-    await _this.axios(
-        {
-          method:'post',
-          url:"http://localhost:9090/admin/changepassword",
-          data:{
-            confirmPwd:_this.ruleForm.confirmPwd,
-            username:_this.user.username
+  methods:{
+    async submit(){
+      const _this=this;
+      _this.dialogPasswordVisible=false
+      await _this.axios(
+          {
+            method:'post',
+            url:"http://localhost:9090/admin/changepassword",
+            data:{
+              confirmPwd:_this.ruleForm.confirmPwd,
+              username:_this.user.username
+            }
           }
+      ).then(function (resp){
+        if (resp.data.code==0){
+          _this.$message({
+            message: '密码修改成功',
+            type: 'success'
+          });
+          _this.ruleForm.confirmPwd=''
+          _this.ruleForm.newPassword=''
+          _this.axios.get("http://localhost:9090/admin/user/logout").then(function (){
+            localStorage.removeItem("token");
+            localStorage.removeItem('systemAdmin')
+            _this.$router.replace({path: '/loginto'})
+          })
         }
-    ).then(function (resp){
-      if (resp.data.code==0){
-        _this.$message({
-          message: '密码修改成功',
-          type: 'success'
-        });
-        _this.ruleForm.confirmPwd=''
-        _this.ruleForm.newPassword=''
-        _this.axios.get("http://localhost:9090/admin/user/logout").then(function (){
-          localStorage.removeItem("token");
-          localStorage.removeItem('systemAdmin')
-          _this.$router.replace({path: '/loginto'})
-        })
-      }
-      else{
-        _this.$message({
-          message: '密码修改失败',
-          type: 'warning'
-        });
-      }
-    })
+        else{
+          _this.$message({
+            message: '密码修改失败',
+            type: 'warning'
+          });
+        }
+      })
+    },
+  },
+  created() {
+    this.userInfo=JSON.parse(localStorage.getItem('userInfo'))
   }
 
 }

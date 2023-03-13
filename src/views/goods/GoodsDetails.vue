@@ -5,17 +5,17 @@
       <el-row>
         <el-col :span="12">
       <div>
-        <p>华为荣耀play34+128g全网通 手机换过外屏，内屏原装 品牌:荣耀 型号:荣耀 Play 3</p>
-      <img src="../../../static/images/banner01.jpg" style="width: 400px;height: 300px">
+        <p>{{ goods.goodsName }}</p>
+      <img :src=goods.goodsCoverImg style="width: 400px;height: 300px">
       </div>
     </el-col>
         <el-col :span="12">
       <el-row style="margin-top: 60px">
         <el-col :span="3"><p style="text-align: center;color: #808080">现价:</p></el-col>
-        <el-col :span="3"><p style="color:#ff483c;font-size: 18px;margin-bottom: 0;margin-top: 16px">1499</p></el-col>
+        <el-col :span="3"><p style="color:#ff483c;font-size: 18px;margin-bottom: 0;margin-top: 16px">{{ goods.sellingPrice }}</p></el-col>
         <el-col :span="5"><p style="color:#808080;">元</p></el-col>
         <el-col :span="3"><p style="text-align: center;color: #808080">原价:</p></el-col>
-        <el-col :span="3"><p style="color:#808080">14939</p></el-col>
+        <el-col :span="3"><p style="color:#808080">{{ goods.originalPrice }}</p></el-col>
         <el-col :span="1"><p style="color: #808080">元</p></el-col>
       </el-row>
       <el-row style="margin-bottom: 30px">
@@ -33,7 +33,7 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="24"><el-button type="primary" >立即购买</el-button></el-col>
+        <el-col :span="24"><el-button @click="toConfirmOrder()" style="background: #ff6700;color: #fff;width: 160px;height: 40px">立即购买</el-button></el-col>
       </el-row>
     </el-col>
       </el-row>
@@ -160,8 +160,41 @@
 </template>
 
 <script>
+import goodsIndex from "@/api/goods/goodsIndex";
 export default {
-  name: "GoodsDetails"
+  name: "GoodsDetails",
+  data(){
+    return{
+      goods: {
+        goodsId: 2,
+        goodsName: "小米",
+        goodsIntro: "gfaggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+        goodsCategoryId: 2,
+        goodsCoverImg: "https://edu-lysa.oss-cn-hangzhou.aliyuncs.com/mall/0a592388-1535-4f9f-8201-ecb78c48bb3d.jpg",
+        goodsDetailContent: "商品详情",
+        originalPrice: 1000,
+        sellingPrice: 100,
+        tag: "",
+        goodsSellStatus: 1,
+        createUser: 1,
+        createTime: "2023-03-05T11:14:25.000+00:00",
+        updateTime: "2023-03-05T11:14:25.000+00:00"
+      },
+    }
+  },
+  methods:{
+    toConfirmOrder(){
+      this.$router.push({name:'GoodsConfirmOrder',params: { goodsId: this.goods.goodsId }})
+      // this.$router.push({ name: 'goodsconfirmorder', params: { userId: 123 }})
+    }
+  },
+  created() {
+    goodsIndex.getDetailById(this.$route.params.id)
+    .then(response=>{
+    this.goods=response.data.goodsDetail
+    })
+  }
+
 }
 </script>
 

@@ -2,13 +2,13 @@
   <div>
     <el-container>
       <el-aside width="200px">
-        <el-cascader :options="options" clearable></el-cascader>
+        <el-cascader :options="options" clearable @change="typeSearch"></el-cascader>
       </el-aside>
 
       <el-main><el-row>
-      <el-col :span="2" :offset="21"><el-input  placeholder="请输入内容"></el-input>
+      <el-col :span="2" :offset="21"><el-input v-model="searchVO.keyWord" placeholder="请输入内容"></el-input>
       </el-col>
-      <el-col :span="1"><el-button icon="el-icon-search" circle></el-button>
+      <el-col :span="1"><el-button @click="goodsSearch()" icon="el-icon-search" circle></el-button>
       </el-col>
     </el-row>
     <el-row>
@@ -19,9 +19,9 @@
       </el-carousel>
     </el-row>
     <el-row>
-      <el-col :span="6" v-for="item in goodsData" :key="item.goodsId">
+      <el-col :span="6" v-for="item in goodsInfo" :key="item.goodsId">
         <div style="width:100%;height: 540px;background-color: #FCF7FF" @click="goodsDetail(item.goodsId)">
-          <img :src="item.imgPath" style="width: 100%">
+          <img :src=item.goodsCoverImg style="width: 100%">
           <p style="text-align: center">{{ item.goodsName }}</p>
           <p style="text-align: center">{{item.goodsIntro}}</p>
           <p style="text-align: center;color:#00C0A3">{{item.originalPrice}}元</p>
@@ -45,43 +45,18 @@
 <script>
 import router from "@/router";
 import userIndex from "@/api/user/userIndex";
+import goodsIndex from "@/api/goods/goodsIndex";
+import typeIndex from "@/api/type/typeIndex";
 export default {
   name: "Home",
   data(){
     return{
+      searchVO:{
+        keyWord:'',
+        typeId: ""
+      },
       options:[
-        {
-          value:"1",
-          label:"手机",
-          children:[
-            {
-              value:"1.1",
-              label:"小米手机"
-            },
-            {
-              value: "1.2",
-              label: "华为手机"
-            },
-            {
-              value:"1.3",
-              label:"苹果手机"
-            },
-          ]
-        },
-        {
-          value:"2",
-          label:"数码",
-          children:[
-            {
-              value:"2.1",
-              label:"游戏主机"
-            },
-            {
-              value: "2.2",
-              label: "二手电脑"
-            }
-          ]
-        }
+
       ],
       imagePathList:[
           require('../../..//static/images/banner01.jpg'),
@@ -118,21 +93,45 @@ export default {
           originalPrice:'1499'
         }
       ],
+      goodsInfo:[],
       userInfo:{
 
       }
     }
   },
   methods:{
-    goodsDetail(goodsId){
-      console.log(goodsId)
-      router.push("goodsdetails")
+    goodsSearch(){
+      goodsIndex.searchGoods(this.searchVO)
+          .then(response=>{
+            this.goodsInfo=response.data.goodsInfo
+          });
     },
+    goodsDetail(goodsId){
+      this.$router.push('goodsdetails/'+goodsId);
+    },
+    getImgUrl(imgName){
+      let urlName = imgName.replace(/\s/g, '')
+      return require("../../../static/images/"+urlName);
+    },
+    typeSearch(e) {
+      this.searchVO.typeId=e[1];
+      goodsIndex.searchGoods(this.searchVO)
+          .then(response=>{
+            this.goodsInfo=response.data.goodsInfo
+          });
+    }
 
   },
   created() {
-    console.log(JSON.parse(localStorage.getItem('userInfo')))
     this.userInfo=JSON.parse(localStorage.getItem('userInfo'))
+    goodsIndex.getGoodsInfo()
+        .then(response=>{
+          this.goodsInfo=response.data.goodsInfo
+        });
+    typeIndex.getTypeInfo()
+    .then(response=>{
+      this.options=response.data.typeVOList
+    })
   }
 }
 </script>

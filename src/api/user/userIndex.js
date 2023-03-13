@@ -13,5 +13,12 @@ export default {
             url:"/user/testaxios",
             method:'get',
         })
+    },
+    getUserIdByMobile(mobile){
+        return request({
+            url:"/user/getUserIdByMobile",
+            method:'get',
+            params:{mobile}
+        })
     }
 }

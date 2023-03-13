@@ -2,7 +2,7 @@
   <div>
     <el-container>
     <el-aside width="575px">
-      <div style="background-color: #fff;margin-left:338px;margin-top: 40px;margin-bottom: 40px;width: 234px;height: 916px">
+      <div style="background-color: #ffffff;margin-left:338px;margin-top: 40px;margin-bottom: 40px;width: 234px;height: 916px">
         <el-row style="margin-left: 50px">
           <el-row style="width: 138px;height: 52px;color: #333">
             <h3 style="font-size: 16px">订单中心</h3>
@@ -42,7 +42,14 @@
             <el-button class="left-navigation" @click="navigatetomain('goodsmanager')" type="text">我买到的</el-button>
           </el-row>
         </el-row>
-
+        <el-row style="margin-left: 50px">
+          <el-row style="width: 138px;height: 52px;color: #333">
+            <h3 style="font-size: 16px">我的统计</h3>
+          </el-row>
+          <el-row style="margin-top: 10px;width: 138px;height: 33px;font-size: 14px;color: #757575">
+            <el-button class="left-navigation" @click="navigatetomain('salesstatistics')" type="text">售卖统计</el-button>
+          </el-row>
+          </el-row>
       </div>
     </el-aside>
     <el-main>
