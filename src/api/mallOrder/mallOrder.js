@@ -13,6 +13,18 @@ export default {
             url:"/mall-order/getOrderChartsData/"+id,
             method:'get'
         })
+    },
+    getOrderByStatus(id,orderStatus){
+        return request({
+            url:"/mall-order/orderByStatus/"+id+"/"+orderStatus,
+            method:'get'
+        })
+    },
+    getOrderByOrderNo(orderNo){
+        return request({
+            url:"/mall-order/orderByNo/"+orderNo,
+            method:'get'
+        })
     }
 
 }

@@ -1,0 +1,2 @@
+docker build -t mallfont .
+docker run -d -p 80:80 mallfont

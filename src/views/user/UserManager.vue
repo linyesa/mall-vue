@@ -8,6 +8,9 @@
             <h3 style="font-size: 16px">订单中心</h3>
           </el-row>
           <el-row style="margin-top: 10px;width: 138px;height: 33px;font-size: 14px;color: #757575">
+            <el-button class="left-navigation" type="text" @click="navigatetomain('ordermanager')">我的订单</el-button>
+          </el-row>
+          <el-row style="margin-top: 10px;width: 138px;height: 33px;font-size: 14px;color: #757575">
             <el-button class="left-navigation" @click="myorder" type="text">我的评价</el-button>
           </el-row>
           <el-row style="margin-top: 10px;width: 138px;height: 33px;font-size: 14px;color: #757575">
