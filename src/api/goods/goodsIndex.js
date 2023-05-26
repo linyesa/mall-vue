@@ -32,6 +32,26 @@ export default {
             url:`/goods/getOnGoodsInfoByUserId/${userId}/${status}`,
             method:'get'
         })
+    },
+    getAllGoods(page,size){
+        return request({
+            url:`/goods/getAllGoods/${page}/${size}`,
+            method:'get'
+        })
+    },
+    goodsOffShelf(goodsId){
+        return request({
+            url:"/goods/goodsOffShelf",
+            method:'delete',
+            params:{"goodsId":goodsId}
+        })
+    },
+    goodsSearch(searchForm){
+        return request({
+            url:"goods/search",
+            method:'post',
+            data:searchForm
+        })
     }
 
 }

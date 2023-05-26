@@ -17,6 +17,8 @@ import SalesStatistics from "@/views/user/userMain/SalesStatistics";
 import AdminAside from "@/views/admin/AdminAside";
 import AdminTypeManager from "@/views/admin/adminMain/AdminTypeManager";
 import OrderManager from "@/views/user/userMain/OrderManager";
+import AdminChart from "@/views/admin/adminMain/AdminChart";
+import AdminGoods from "@/views/admin/adminMain/AdminGoods";
 
 // 要告诉 vue 使用 vueRouter
 Vue.use(VueRouter);
@@ -76,6 +78,14 @@ const routes = [
                     {
                         path:"admintypemanager",
                         component:AdminTypeManager
+                    },
+                    {
+                        path:"adminchart",
+                        component:AdminChart
+                    },
+                    {
+                        path: "admingoods",
+                        component: AdminGoods
                     }
                 ]
             }

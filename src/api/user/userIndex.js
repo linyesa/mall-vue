@@ -20,5 +20,12 @@ export default {
             method:'get',
             params:{mobile}
         })
+    },
+    changePassword(userform){
+        return request({
+            url:"/user/changePassword",
+            method:'get',
+            params:userform
+        })
     }
 }

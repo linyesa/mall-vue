@@ -49,7 +49,7 @@
                </el-col>
                <el-col :span="12">
                  <el-row type="flex" justify="end">
-                   <el-button style="background: #ff6700;color: #fff;width: 120px;height: 30px;margin-right: 35px" v-show="order.payStatus!=1">立即付款</el-button>
+                   <el-button style="background: #ff6700;color: #fff;width: 120px;height: 30px;margin-right: 35px" v-show="order.payStatus!=1" @click="orderPay(order.extraInfo,order.orderNo,order.totalPrice)">立即付款</el-button>
                  </el-row>
                  <el-row type="flex" justify="end">
                    <el-button style="margin-top:10px;width: 120px;height: 30px;margin-right: 35px">订单详情</el-button>
@@ -80,7 +80,7 @@ export default {
       query:'',
       priceSum:5999,
       list:[],
-      orderStatus:'0',
+      orderStatus:'0'
     }
   },
   methods:{
@@ -93,8 +93,23 @@ export default {
     searchOrder(orderNo){
       mallOrder.getOrderByOrderNo(orderNo)
           .then(response=>{
-            this.list=response.data.list
+            var orderList=response.data.list;
+            // eslint-disable-next-line no-empty
+            if (orderList==undefined||orderList==null||orderList.length<=0){
+              this.$message({
+                message: '未找到对应订单',
+                type: 'danger'
+              });
+            }else {
+              this.list=orderList
+            }
           })
+    },
+    orderPay(suject,traceNo,totalAmount){
+      console.log(suject,traceNo,totalAmount)
+      // window.open("http://localhost:6001/alipay/pay?"+"subject="+suject+"&traceNo="+traceNo+"&totalAmount="+totalAmount)
+      // window.open("http://182.92.86.247:6001/alipay/pay?"+"subject="+suject+"&traceNo="+traceNo+"&totalAmount="+totalAmount)
+      window.location.href="http://localhost:6001/alipay/pay?"+"subject="+suject+"&traceNo="+traceNo+"&totalAmount="+totalAmount;
     }
   },
   created() {

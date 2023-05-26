@@ -23,12 +23,23 @@
       </el-row>
     </el-header>
     <el-container>
-
       <el-main>
         <router-view></router-view>
       </el-main>
      </el-container>
-    <el-footer>Footer</el-footer>
+    <el-footer>
+      <div class="gcs-footer">
+        <div class="footer-top">
+          <a href="#">百度网</a> |
+          <a href="#">新浪网</a> |
+          <a href="#">腾迅房产</a> |
+          <a href="#">找货网</a> |
+          <a href="#">北极绒</a> |
+          <a href="#">阿里巴巴</a> |
+        </div>
+        <p>©Copyright 2023 林也是lystqn版权所有 | 重庆ICP备19946895740号-4</p>
+      </div>
+    </el-footer>
   </el-container>
 
 </template>
@@ -112,8 +123,9 @@ export default {
 </script>
 
 <style scoped>
-.el-header, .el-footer {
+.el-header{
   background-color: #B3C0D1;
+  /*background-color: #222c3a;*/
   color: #333;
   text-align: center;
   line-height: 60px;
@@ -129,5 +141,57 @@ export default {
 /*  display: inline;*/
 /*  margin-right: 20px;*/
 /*}*/
+.gcs-footer{
 
+   margin-top: 20px;
+
+   background:#222c3a;
+
+   width: 100%;
+
+   height: 165px;
+
+   text-align: center;
+
+   color: white;
+
+   position: absolute;
+
+ }
+
+.gcs-footer .footer-top{
+
+  margin-top: 50px;
+
+}
+
+.gcs-footer a{
+
+  color: #f0f1f1;
+
+  text-decoration: none;
+
+  padding: 0 10px;
+
+  vertical-align:middle;
+
+}
+
+.gcs-footer a:hover{
+
+  color: red;
+
+  text-decoration: underline;
+
+}
+
+.gcs-footer p{
+
+  height: 15px;
+
+  color: #888888;
+
+  margin-top: 30px;
+
+}
 </style>

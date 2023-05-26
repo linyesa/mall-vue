@@ -2,6 +2,8 @@ import axios from 'axios'
 
 const service = axios.create({
     baseURL: 'http://localhost:6001', // api 的 base_url
+    // baseURL: 'http://182.92.86.247:6001', // api 的 base_url
+
     timeout: 5000, // 请求超时时间
     headers:{
         'Content-Type': 'application/json; charset=UTF-8'

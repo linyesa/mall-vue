@@ -85,6 +85,7 @@
 </template>
 
 <script>
+import userIndex from "@/api/user/userIndex";
 export default {
   name: "UserMain",
   data(){
@@ -164,16 +165,11 @@ export default {
     async submit(){
       const _this=this;
       _this.dialogPasswordVisible=false
-      await _this.axios(
-          {
-            method:'post',
-            url:"http://localhost:9090/admin/changepassword",
-            data:{
-              confirmPwd:_this.ruleForm.confirmPwd,
-              username:_this.user.username
-            }
-          }
-      ).then(function (resp){
+      let userForm={
+            'confirmPwd':_this.ruleForm.confirmPwd,
+            'mobile':_this.userInfo.mobile
+      }
+      await userIndex.changePassword(userForm).then(function (resp){
         if (resp.data.code==0){
           _this.$message({
             message: '密码修改成功',
@@ -181,11 +177,8 @@ export default {
           });
           _this.ruleForm.confirmPwd=''
           _this.ruleForm.newPassword=''
-          _this.axios.get("http://localhost:9090/admin/user/logout").then(function (){
-            localStorage.removeItem("token");
-            localStorage.removeItem('systemAdmin')
-            _this.$router.replace({path: '/loginto'})
-          })
+            localStorage.removeItem('userInfo')
+            _this.$router.replace({path: '/login'})
         }
         else{
           _this.$message({
